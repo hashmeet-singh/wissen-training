@@ -1,0 +1,36 @@
+package com.bank.mts.web;
+
+import javax.validation.constraints.NotBlank;
+
+public class TxrRequest {
+	@NotBlank
+	private String fromAccountNum;
+	@NotBlank
+	private String toAccountNum;
+	private double amount;
+
+	public String getFromAccountNum() {
+		return fromAccountNum;
+	}
+
+	public void setFromAccountNum(String fromAccountNum) {
+		this.fromAccountNum = fromAccountNum;
+	}
+
+	public String getToAccountNum() {
+		return toAccountNum;
+	}
+
+	public void setToAccountNum(String toAccountNum) {
+		this.toAccountNum = toAccountNum;
+	}
+
+	public String getAmount() {
+		return amount;
+	}
+
+	public void setAmount(String amount) {
+		this.amount = amount;
+	}
+
+}

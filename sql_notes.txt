@@ -1,0 +1,44 @@
+=> Cluster tables: Share same resources
+=> RAC(Real Application Clusters): Db having more than 1 instance.
+
+=> 2 types of tables: 
+	1. Data tables- User creates and maintains  , 
+	2. Data dictionary tables(metadata)- Created by db at the time of creating user tables, only read operations allowed.
+	e.g. user_xyz, v$xyz, all_xyz, dba_xyz
+
+=> number type takes more pace than int data type.
+
+=> Restore: Data is as good as the old one.
+
+=> Recovery: Trying to recover the data missing due to failure.	
+
+=> RecycleBin: From 10g onwards. Contains all the dropped tables.
+	desc recyclebin;
+	select object_name, original_name, operation, droptime, dropscn from recyclebin;
+
+=>Unused table: As good as deleted. Cannot be restored
+	desc user_unused_col_tabs;
+	
+=>Dirty buffers: Transaction active in memory and not committed.
+
+=> Locks
+	1. Shared- Multiple instances can have lock on the same table. No write operations allowed.
+	2.Exclusive- Only one instance can have the lock. Others cannot lock the table when one instance has the exclusive lock. Can do write operations.
+
+=>Db block size: db can read 8192kb of data in a single I/O operation.
+
+=>dual: Dummy table with single column for calcaulation purpose.
+	select 8192/512 from dual;
+
+=> Oracle has logical storage blocks made up of multiple system storage blocks.A schema cannot store data above its specified limits.
+	alter user wissen quota 2m on users;
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+PL/SQL
+
+=> Procedural extension for SQL
+=> Instance is memory storage and data structure used.
+=> Begin and End mandatory.
+=> data Types: Static, Composite, 
+=>Cursers - Implicit and Explicit.
+	

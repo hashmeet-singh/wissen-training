@@ -1,0 +1,15 @@
+package com.example.demo.model;
+
+public enum Stars {
+	;
+
+	create table shop_db.REVIEWS (
+		id int primary key auto_increment,
+		stars int not null,
+		author varchar(50) not null,
+		review varchar(225),
+		product_id int not null,
+		FOREIGN KEY(product_id) REFERENCES products(id)
+	);
+	"1",2,3,4,5
+}

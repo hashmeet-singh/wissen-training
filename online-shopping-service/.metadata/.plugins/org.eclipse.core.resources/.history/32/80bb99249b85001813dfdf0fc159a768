@@ -1,0 +1,33 @@
+package com.bank.mts.web;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.bank.mts.exception.InsufficientBalanceException;
+import com.bank.mts.service.TxrService;
+
+@RestController
+@CrossOrigin(origins="*")
+@RequestMapping(value="accounts/{id}/transaction")
+public class TxrController {
+	
+	@Autowired
+	private TxrService txrService;
+	
+	@PostMapping()
+	public void doTransaction(@RequestBody TxrRequest txrRequest) {
+		txrService.txr(txrRequest.getAmount(), txrRequest.getFromAccountNum(), txrRequest.getToAccountNum());
+	}
+	
+	@ExceptionHandler(value= InsufficientBalanceException.class)
+	public ResponseEntity<String> exceptionHandler(Throwable t){
+		return new ResponseEntity<String>(t.getMessage(), null, HttpStatus.NOT_FOUND);
+	}
+}

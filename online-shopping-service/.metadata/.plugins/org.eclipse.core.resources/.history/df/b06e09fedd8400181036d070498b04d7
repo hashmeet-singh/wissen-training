@@ -1,0 +1,9 @@
+package com.example.demo.error;
+
+public class ProductNotFoundException extends Exception {
+	String message = "Product not Found";
+
+	public ProductNotFoundException() {
+		super(message);
+	}
+}

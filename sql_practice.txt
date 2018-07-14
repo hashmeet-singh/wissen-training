@@ -1,0 +1,1512 @@
+SQL> create table wissen
+  2  (id number(5),
+  3  name varchar2(20),
+  4  doj date,
+  5  location varchar2(20),
+  6  salary number);
+
+Table created.
+
+SQL> desc wissen;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                                 NUMBER(5)
+ NAME                                               VARCHAR2(20)
+ DOJ                                                DATE
+ LOCATION                                           VARCHAR2(20)
+ SALARY                                             NUMBER
+
+SQL> create table wissen1 as select * from employees;
+
+Table created.
+
+SQL> 
+SQL> 
+SQL> desc wissen1
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPLOYEE_ID                                        NUMBER(6)
+ FIRST_NAME                                         VARCHAR2(20)
+ LAST_NAME                                 NOT NULL VARCHAR2(25)
+ EMAIL                                     NOT NULL VARCHAR2(25)
+ PHONE_NUMBER                                       VARCHAR2(20)
+ HIRE_DATE                                 NOT NULL DATE
+ JOB_ID                                    NOT NULL VARCHAR2(10)
+ SALARY                                             NUMBER(8,2)
+ COMMISSION_PCT                                     NUMBER(2,2)
+ MANAGER_ID                                         NUMBER(6)
+ DEPARTMENT_ID                                      NUMBER(4)
+
+SQL> desc employees
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPLOYEE_ID                               NOT NULL NUMBER(6)
+ FIRST_NAME                                         VARCHAR2(20)
+ LAST_NAME                                 NOT NULL VARCHAR2(25)
+ EMAIL                                     NOT NULL VARCHAR2(25)
+ PHONE_NUMBER                                       VARCHAR2(20)
+ HIRE_DATE                                 NOT NULL DATE
+ JOB_ID                                    NOT NULL VARCHAR2(10)
+ SALARY                                             NUMBER(8,2)
+ COMMISSION_PCT                                     NUMBER(2,2)
+ MANAGER_ID                                         NUMBER(6)
+ DEPARTMENT_ID                                      NUMBER(4)
+
+SQL> delect count(*) from wissen1;
+SP2-0734: unknown command beginning "delect cou..." - rest of line ignored.
+SQL> select count(*) from wissen1;
+
+  COUNT(*)                                                                      
+----------                                                                      
+       107                                                                      
+
+SQL> 
+SQL> 
+SQL> create table wissen_nodata as select * from employees where  2=4;
+
+Table created.
+
+SQL> select count(*) from wissen_nodata;
+
+  COUNT(*)                                                                      
+----------                                                                      
+         0                                                                      
+
+SQL> 
+SQL> create table dept80 as
+  2  select employee_id, last_name, salary*12 ANNSAL,
+  3  hiredate
+  4  from employees
+  5  where department_id=80;
+hiredate
+*
+ERROR at line 3:
+ORA-00904: "HIREDATE": invalid identifier 
+
+
+SQL> create table dept80 as
+  2  select employee_id, last_name, salary*12 ANNSAL,
+  3  hiredate
+  4  from employees
+  5  where department_id=80;
+hiredate
+*
+ERROR at line 3:
+ORA-00904: "HIREDATE": invalid identifier 
+
+
+SQL> create table dept80 as
+  2  select employee_id, last_name, salary*12 ANNSAL,
+  3  hire_date
+  4  from employees
+  5  where department_id=80;
+
+Table created.
+
+SQL> desc dept80;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPLOYEE_ID                                        NUMBER(6)
+ LAST_NAME                                 NOT NULL VARCHAR2(25)
+ ANNSAL                                             NUMBER
+ HIRE_DATE                                 NOT NULL DATE
+
+SQL> select count(*) from dept80;
+
+  COUNT(*)                                                                      
+----------                                                                      
+        34                                                                      
+
+SQL> 
+SQL> alter table wissen add designation varchar2(20);
+
+Table altered.
+
+SQL> desc wissen;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                                 NUMBER(5)
+ NAME                                               VARCHAR2(20)
+ DOJ                                                DATE
+ LOCATION                                           VARCHAR2(20)
+ SALARY                                             NUMBER
+ DESIGNATION                                        VARCHAR2(20)
+
+SQL> 
+SQL> 
+SQL> alter table wissen add (desig1 varchar2(20), desig2 varchar(20));
+
+Table altered.
+
+SQL> 
+SQL> desc wissen;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                                 NUMBER(5)
+ NAME                                               VARCHAR2(20)
+ DOJ                                                DATE
+ LOCATION                                           VARCHAR2(20)
+ SALARY                                             NUMBER
+ DESIGNATION                                        VARCHAR2(20)
+ DESIG1                                             VARCHAR2(20)
+ DESIG2                                             VARCHAR2(20)
+
+SQL> 
+SQL> 
+SQL> 
+SQL> alter table wissen modify designamtion varchar2(5);
+alter table wissen modify designamtion varchar2(5)
+                          *
+ERROR at line 1:
+ORA-00904: "DESIGNAMTION": invalid identifier 
+
+
+SQL> alter table wissen modify designation varchar2(5);
+
+Table altered.
+
+SQL> 
+SQL> desc wissen;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                                 NUMBER(5)
+ NAME                                               VARCHAR2(20)
+ DOJ                                                DATE
+ LOCATION                                           VARCHAR2(20)
+ SALARY                                             NUMBER
+ DESIGNATION                                        VARCHAR2(5)
+ DESIG1                                             VARCHAR2(20)
+ DESIG2                                             VARCHAR2(20)
+
+SQL> 
+SQL> 
+SQL> alter table wissen drop column designation;
+
+Table altered.
+
+SQL> 
+SQL> desc wissen;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                                 NUMBER(5)
+ NAME                                               VARCHAR2(20)
+ DOJ                                                DATE
+ LOCATION                                           VARCHAR2(20)
+ SALARY                                             NUMBER
+ DESIG1                                             VARCHAR2(20)
+ DESIG2                                             VARCHAR2(20)
+
+SQL> 
+SQL> 
+SQL> alter table wissen set unused desig1;
+alter table wissen set unused desig1
+                              *
+ERROR at line 1:
+ORA-00905: missing keyword 
+
+
+SQL> alter table wissen set unused (desig1);
+
+Table altered.
+
+SQL> 
+SQL> desc wissen;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                                 NUMBER(5)
+ NAME                                               VARCHAR2(20)
+ DOJ                                                DATE
+ LOCATION                                           VARCHAR2(20)
+ SALARY                                             NUMBER
+ DESIG2                                             VARCHAR2(20)
+
+SQL> 
+SQL> 
+SQL> 
+SQL> alter table wissen drop unused ;
+alter table wissen drop unused 
+                              *
+ERROR at line 1:
+ORA-02000: missing COLUMNS keyword 
+
+
+SQL> desc user_tables;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ TABLE_NAME                                NOT NULL VARCHAR2(30)
+ TABLESPACE_NAME                                    VARCHAR2(30)
+ CLUSTER_NAME                                       VARCHAR2(30)
+ IOT_NAME                                           VARCHAR2(30)
+ STATUS                                             VARCHAR2(8)
+ PCT_FREE                                           NUMBER
+ PCT_USED                                           NUMBER
+ INI_TRANS                                          NUMBER
+ MAX_TRANS                                          NUMBER
+ INITIAL_EXTENT                                     NUMBER
+ NEXT_EXTENT                                        NUMBER
+ MIN_EXTENTS                                        NUMBER
+ MAX_EXTENTS                                        NUMBER
+ PCT_INCREASE                                       NUMBER
+ FREELISTS                                          NUMBER
+ FREELIST_GROUPS                                    NUMBER
+ LOGGING                                            VARCHAR2(3)
+ BACKED_UP                                          VARCHAR2(1)
+ NUM_ROWS                                           NUMBER
+ BLOCKS                                             NUMBER
+ EMPTY_BLOCKS                                       NUMBER
+ AVG_SPACE                                          NUMBER
+ CHAIN_CNT                                          NUMBER
+ AVG_ROW_LEN                                        NUMBER
+ AVG_SPACE_FREELIST_BLOCKS                          NUMBER
+ NUM_FREELIST_BLOCKS                                NUMBER
+ DEGREE                                             VARCHAR2(10)
+ INSTANCES                                          VARCHAR2(10)
+ CACHE                                              VARCHAR2(5)
+ TABLE_LOCK                                         VARCHAR2(8)
+ SAMPLE_SIZE                                        NUMBER
+ LAST_ANALYZED                                      DATE
+ PARTITIONED                                        VARCHAR2(3)
+ IOT_TYPE                                           VARCHAR2(12)
+ TEMPORARY                                          VARCHAR2(1)
+ SECONDARY                                          VARCHAR2(1)
+ NESTED                                             VARCHAR2(3)
+ BUFFER_POOL                                        VARCHAR2(7)
+ FLASH_CACHE                                        VARCHAR2(7)
+ CELL_FLASH_CACHE                                   VARCHAR2(7)
+ ROW_MOVEMENT                                       VARCHAR2(8)
+ GLOBAL_STATS                                       VARCHAR2(3)
+ USER_STATS                                         VARCHAR2(3)
+ DURATION                                           VARCHAR2(15)
+ SKIP_CORRUPT                                       VARCHAR2(8)
+ MONITORING                                         VARCHAR2(3)
+ CLUSTER_OWNER                                      VARCHAR2(30)
+ DEPENDENCIES                                       VARCHAR2(8)
+ COMPRESSION                                        VARCHAR2(8)
+ COMPRESS_FOR                                       VARCHAR2(12)
+ DROPPED                                            VARCHAR2(3)
+ READ_ONLY                                          VARCHAR2(3)
+ SEGMENT_CREATED                                    VARCHAR2(3)
+ RESULT_CACHE                                       VARCHAR2(7)
+
+SQL> 
+SQL> select column_name from all_tab_cols where owner='ME' and table_name='wissen';
+
+no rows selected
+
+SQL> select column_name from all_tab_cols where owner='hr' and table_name='wissen';
+
+no rows selected
+
+SQL> desc user_unused_col_tabs;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ TABLE_NAME                                NOT NULL VARCHAR2(30)
+ COUNT                                              NUMBER
+
+SQL> select * from user_unused_col_tabs;
+
+TABLE_NAME                          COUNT                                       
+------------------------------ ----------                                       
+WISSEN                                  1                                       
+
+SQL> drop unused;
+drop unused
+     *
+ERROR at line 1:
+ORA-00950: invalid DROP option 
+
+
+SQL> alter table wissen drop unused columns;
+
+Table altered.
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> drop table dept80;
+
+Table dropped.
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID                               
+------------------------------ ------- ----------                               
+BIN$E/GeISLiS5ShGY5ZaJvWjg==$0 TABLE                                            
+COUNTRIES                      TABLE                                            
+DEPARTMENTS                    TABLE                                            
+EMPLOYEES                      TABLE                                            
+EMP_DETAILS_VIEW               VIEW                                             
+JOBS                           TABLE                                            
+JOB_HISTORY                    TABLE                                            
+LOCATIONS                      TABLE                                            
+REGIONS                        TABLE                                            
+WISSEN                         TABLE                                            
+WISSEN1                        TABLE                                            
+
+TNAME                          TABTYPE  CLUSTERID                               
+------------------------------ ------- ----------                               
+WISSEN_NODATA                  TABLE                                            
+
+12 rows selected.
+
+SQL> drop table wissen1;
+
+Table dropped.
+
+SQL> 
+SQL> desc recyclebin;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ OBJECT_NAME                               NOT NULL VARCHAR2(30)
+ ORIGINAL_NAME                                      VARCHAR2(32)
+ OPERATION                                          VARCHAR2(9)
+ TYPE                                               VARCHAR2(25)
+ TS_NAME                                            VARCHAR2(30)
+ CREATETIME                                         VARCHAR2(19)
+ DROPTIME                                           VARCHAR2(19)
+ DROPSCN                                            NUMBER
+ PARTITION_NAME                                     VARCHAR2(32)
+ CAN_UNDROP                                         VARCHAR2(3)
+ CAN_PURGE                                          VARCHAR2(3)
+ RELATED                                   NOT NULL NUMBER
+ BASE_OBJECT                               NOT NULL NUMBER
+ PURGE_OBJECT                              NOT NULL NUMBER
+ SPACE                                              NUMBER
+
+SQL> select obj_name, priginal_name, operation, droptime, dropscn from recyclebin;
+select obj_name, priginal_name, operation, droptime, dropscn from recyclebin
+                 *
+ERROR at line 1:
+ORA-00904: "PRIGINAL_NAME": invalid identifier 
+
+
+SQL> select obj_name, original_name, operation, droptime, dropscn from recyclebin;
+select obj_name, original_name, operation, droptime, dropscn from recyclebin
+       *
+ERROR at line 1:
+ORA-00904: "OBJ_NAME": invalid identifier 
+
+
+SQL> select object_name, original_name, operation, droptime, dropscn from recyclebin;
+
+OBJECT_NAME                    ORIGINAL_NAME                    OPERATION       
+------------------------------ -------------------------------- ---------       
+DROPTIME               DROPSCN                                                  
+------------------- ----------                                                  
+BIN$E/GeISLiS5ShGY5ZaJvWjg==$0 DEPT80                           DROP            
+2018-06-30:11:16:46    1571541                                                  
+                                                                                
+BIN$k7myfd/fSLq1nUQrBqFJSg==$0 WISSEN1                          DROP            
+2018-06-30:11:17:37    1571609                                                  
+                                                                                
+
+SQL> 
+SQL> flashback table wissen to before drop;
+flashback table wissen to before drop
+*
+ERROR at line 1:
+ORA-38305: object not in RECYCLE BIN 
+
+
+SQL> flashback table wissen1 to before drop;
+
+Flashback complete.
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID                               
+------------------------------ ------- ----------                               
+BIN$E/GeISLiS5ShGY5ZaJvWjg==$0 TABLE                                            
+COUNTRIES                      TABLE                                            
+DEPARTMENTS                    TABLE                                            
+EMPLOYEES                      TABLE                                            
+EMP_DETAILS_VIEW               VIEW                                             
+JOBS                           TABLE                                            
+JOB_HISTORY                    TABLE                                            
+LOCATIONS                      TABLE                                            
+REGIONS                        TABLE                                            
+WISSEN                         TABLE                                            
+WISSEN1                        TABLE                                            
+
+TNAME                          TABTYPE  CLUSTERID                               
+------------------------------ ------- ----------                               
+WISSEN_NODATA                  TABLE                                            
+
+12 rows selected.
+
+SQL> 
+SQL> drop table wissen1 purge;
+
+Table dropped.
+
+SQL> 
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID                               
+------------------------------ ------- ----------                               
+BIN$E/GeISLiS5ShGY5ZaJvWjg==$0 TABLE                                            
+COUNTRIES                      TABLE                                            
+DEPARTMENTS                    TABLE                                            
+EMPLOYEES                      TABLE                                            
+EMP_DETAILS_VIEW               VIEW                                             
+JOBS                           TABLE                                            
+JOB_HISTORY                    TABLE                                            
+LOCATIONS                      TABLE                                            
+REGIONS                        TABLE                                            
+WISSEN                         TABLE                                            
+WISSEN_NODATA                  TABLE                                            
+
+11 rows selected.
+
+SQL> 
+SQL> purge recyclebin;
+
+Recyclebin purged.
+
+SQL> desc recyclebin;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ OBJECT_NAME                               NOT NULL VARCHAR2(30)
+ ORIGINAL_NAME                                      VARCHAR2(32)
+ OPERATION                                          VARCHAR2(9)
+ TYPE                                               VARCHAR2(25)
+ TS_NAME                                            VARCHAR2(30)
+ CREATETIME                                         VARCHAR2(19)
+ DROPTIME                                           VARCHAR2(19)
+ DROPSCN                                            NUMBER
+ PARTITION_NAME                                     VARCHAR2(32)
+ CAN_UNDROP                                         VARCHAR2(3)
+ CAN_PURGE                                          VARCHAR2(3)
+ RELATED                                   NOT NULL NUMBER
+ BASE_OBJECT                               NOT NULL NUMBER
+ PURGE_OBJECT                              NOT NULL NUMBER
+ SPACE                                              NUMBER
+
+SQL> select obj_name, priginal_name, operation, droptime, dropscn from recyclebin;
+select obj_name, priginal_name, operation, droptime, dropscn from recyclebin
+                 *
+ERROR at line 1:
+ORA-00904: "PRIGINAL_NAME": invalid identifier 
+
+
+SQL> select object_name, original_name, operation, droptime, dropscn from recyclebin;
+
+no rows selected
+
+SQL> insert into wissen values(10001,'Hashmeet','04-jun-2018','Mumbai',20000);
+insert into wissen values(10001,'Hashmeet','04-jun-2018','Mumbai',20000)
+            *
+ERROR at line 1:
+ORA-00947: not enough values 
+
+
+SQL> desc wissen ;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                                 NUMBER(5)
+ NAME                                               VARCHAR2(20)
+ DOJ                                                DATE
+ LOCATION                                           VARCHAR2(20)
+ SALARY                                             NUMBER
+ DESIG2                                             VARCHAR2(20)
+
+SQL> alter table wissen drop column desig2;
+
+Table altered.
+
+SQL> insert into wissen values(10001,'Hashmeet','04-jun-2018','Mumbai',20000);
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from wissen
+  2  ;
+
+        ID NAME                 DOJ       LOCATION                 SALARY       
+---------- -------------------- --------- -------------------- ----------       
+     10001 Hashmeet             04-JUN-18 Mumbai                    20000       
+
+SQL> 
+SQL> update wissen set name='Hashmeet C.' where id = 10001;
+
+1 row updated.
+
+SQL> insert into wissen values(10002,'Satyam','04-jun-2018','Mumbai',20000);
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> update wissen set name='Satyam M.' where id = 10002;
+
+1 row updated.
+
+SQL> update wissen set name='Satyam M.' where id = 10001;
+
+1 row updated.
+
+SQL> lock table wissen in shared mode;
+lock table wissen in shared mode
+                            *
+ERROR at line 1:
+ORA-01737: valid modes: [ROW] SHARE, [[SHARE] ROW] EXCLUSIVE, SHARE UPDATE 
+
+
+SQL> lock table wissen in share mode;
+
+Table(s) Locked.
+
+SQL> grant create session to wissen;
+grant create session to wissen
+*
+ERROR at line 1:
+ORA-01031: insufficient privileges 
+
+
+SQL> create user wissen identified by wissen account lock;
+create user wissen identified by wissen account lock
+                                 *
+ERROR at line 1:
+ORA-01031: insufficient privileges 
+
+
+SQL> sys as sysdba;
+SP2-0734: unknown command beginning "sys as sys..." - rest of line ignored.
+SQL> conn sys as sysdba
+Connected.
+SQL> create user wissen identified by wissen account lock;
+
+User created.
+
+SQL> conn wissen/wissen
+ERROR:
+ORA-28000: the account is locked 
+
+
+Warning: You are no longer connected to ORACLE.
+SQL> conn sys as sysdba;
+Connected.
+SQL> conn wissen/wissen
+ERROR:
+ORA-28000: the account is locked 
+
+
+Warning: You are no longer connected to ORACLE.
+SQL> desc dba_users;
+SP2-0640: Not connected
+SP2-0641: "DESCRIBE" requires connection to server
+SQL> conn hr/hr;
+Connected.
+SQL> create user wissen identified by wissen account lock;
+create user wissen identified by wissen account lock
+                                 *
+ERROR at line 1:
+ORA-01031: insufficient privileges 
+
+
+SQL> conn sys as sysdba
+Connected.
+SQL> conn wissen/wissen
+ERROR:
+ORA-28000: the account is locked 
+
+
+Warning: You are no longer connected to ORACLE.
+SQL> conn sys as sysdba;
+Connected.
+SQL> create user wissen account unlock;
+create user wissen account unlock
+                                *
+ERROR at line 1:
+ORA-01938: IDENTIFIED BY must be specified for CREATE USER 
+
+
+SQL> create user wissen account unlock;
+create user wissen account unlock
+                                *
+ERROR at line 1:
+ORA-01938: IDENTIFIED BY must be specified for CREATE USER 
+
+
+SQL> alter user wissen account unlock;
+
+User altered.
+
+SQL> grant create session to wissen;
+
+Grant succeeded.
+
+SQL> conn wissen/wissen;
+Connected.
+SQL> create table a(id number);
+create table a(id number)
+*
+ERROR at line 1:
+ORA-01031: insufficient privileges 
+
+
+SQL> grant createw table to wissen;
+grant createw table to wissen
+      *
+ERROR at line 1:
+ORA-00990: missing or invalid privilege 
+
+
+SQL> grant create table to wissen;
+grant create table to wissen
+*
+ERROR at line 1:
+ORA-01031: insufficient privileges 
+
+
+SQL> conn sys as sysdba;
+Connected.
+SQL> grant create table to wissen;
+
+Grant succeeded.
+
+SQL> conn wissen/wissen
+Connected.
+SQL> create table a(id number);
+
+Table created.
+
+SQL> desc a;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                                 NUMBER
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID                               
+------------------------------ ------- ----------                               
+A                              TABLE                                            
+
+SQL> drop table a;
+
+Table dropped.
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID                               
+------------------------------ ------- ----------                               
+BIN$oTCrbJo4T761enqUmcyJ/A==$0 TABLE                                            
+
+SQL> purge recyclebin;
+
+Recyclebin purged.
+
+SQL> select * from tab;
+
+no rows selected
+
+SQL> create table a(id number);
+
+Table created.
+
+SQL> insert into a values(10);
+insert into a values(10)
+            *
+ERROR at line 1:
+ORA-01950: no privileges on tablespace 'USERS' 
+
+
+SQL> con sys as sysdba;
+SP2-0734: unknown command beginning "con sys as..." - rest of line ignored.
+SQL> conn sys as sysdba;
+Connected.
+SQL> alter user wissen quota 2m on users;
+
+User altered.
+
+SQL> conn scott/tiger;
+Connected.
+SQL> select * from wissen;
+select * from wissen
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> conn sys as sysdba;
+Connected.
+SQL> grant select on wissen to scott;
+grant select on wissen to scott
+                *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> conn hr/hr;
+Connected.
+SQL> grant select on wissen to scott;
+
+Grant succeeded.
+
+SQL> conn scott/tiger
+Connected.
+SQL> 
+SQL> select * from wissen;
+select * from wissen
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> select * from hr.wissen;
+
+        ID NAME                 DOJ       LOCATION                 SALARY       
+---------- -------------------- --------- -------------------- ----------       
+     10001 Satyam M.            04-JUN-18 Mumbai                    20000       
+     10002 Satyam M.            04-JUN-18 Mumbai                    20000       
+
+SQL> conn hr/hr;
+Connected.
+SQL> grant all wissen to scott;
+grant all wissen to scott
+      *
+ERROR at line 1:
+ORA-00990: missing or invalid privilege 
+
+
+SQL> grant all on wissen to scott;
+
+Grant succeeded.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> conn hr/hr
+Connected.
+SQL> grant all on wissen to scott with grant option;;
+grant all on wissen to scott with grant option;
+                                              *
+ERROR at line 1:
+ORA-00911: invalid character 
+
+
+SQL> grant all on wissen to scott with grant option;
+
+Grant succeeded.
+
+SQL> revoke all on wissen from scott;
+
+Revoke succeeded.
+
+SQL> grant all on wissen to scott with grant option;
+
+Grant succeeded.
+
+SQL> revoke all on wissen from scott;
+
+Revoke succeeded.
+
+SQL> grant all on wissen to scott with grant option;
+
+Grant succeeded.
+
+SQL> revoke all on wissen from scott;
+
+Revoke succeeded.
+
+SQL> select * from wissen;
+
+        ID NAME                 DOJ       LOCATION                 SALARY       
+---------- -------------------- --------- -------------------- ----------       
+     10001 Satyam M.            04-JUN-18 Mumbai                    20000       
+     10002 Satyam M.            04-JUN-18 Mumbai                    20000       
+
+SQL> alter table wissen add constraint wis_id_pk primary key(id);
+
+Table altered.
+
+SQL> desc wissen;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                        NOT NULL NUMBER(5)
+ NAME                                               VARCHAR2(20)
+ DOJ                                                DATE
+ LOCATION                                           VARCHAR2(20)
+ SALARY                                             NUMBER
+
+SQL> alter table wissen diable constraint wis_id_pk;
+alter table wissen diable constraint wis_id_pk
+                   *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option 
+
+
+SQL> alter table wissen disable constraint wis_id_pk;
+
+Table altered.
+
+SQL> 
+SQL> 
+SQL> desc wissen;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                                 NUMBER(5)
+ NAME                                               VARCHAR2(20)
+ DOJ                                                DATE
+ LOCATION                                           VARCHAR2(20)
+ SALARY                                             NUMBER
+
+SQL> 
+SQL> 
+SQL> alter table wissen enable constraint wis_id_pk;
+
+Table altered.
+
+SQL> 
+SQL> desc wissen;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                        NOT NULL NUMBER(5)
+ NAME                                               VARCHAR2(20)
+ DOJ                                                DATE
+ LOCATION                                           VARCHAR2(20)
+ SALARY                                             NUMBER
+
+SQL> 
+SQL> 
+SQL> alter table wissen drop constraint wis_id_pk;
+
+Table altered.
+
+SQL> alter table wissen add constraint wis_id_pk primary key(id);
+
+Table altered.
+
+SQL> 
+SQL> desc wissen;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                        NOT NULL NUMBER(5)
+ NAME                                               VARCHAR2(20)
+ DOJ                                                DATE
+ LOCATION                                           VARCHAR2(20)
+ SALARY                                             NUMBER
+
+SQL> 
+SQL> 
+SQL> 
+SQL> commit;
+
+Commit complete.
+
+SQL> 
+SQL> 
+SQL> 
+SQL> alter table wissen drop constraint wis_id_pk cascade;
+
+Table altered.
+
+SQL> alter table wissen add constraint wis_id_pk primary key(id);
+
+Table altered.
+
+SQL> 
+SQL> 
+SQL> desc wissen;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                        NOT NULL NUMBER(5)
+ NAME                                               VARCHAR2(20)
+ DOJ                                                DATE
+ LOCATION                                           VARCHAR2(20)
+ SALARY                                             NUMBER
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> desc user_constraints;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ OWNER                                              VARCHAR2(30)
+ CONSTRAINT_NAME                           NOT NULL VARCHAR2(30)
+ CONSTRAINT_TYPE                                    VARCHAR2(1)
+ TABLE_NAME                                NOT NULL VARCHAR2(30)
+ SEARCH_CONDITION                                   LONG
+ R_OWNER                                            VARCHAR2(30)
+ R_CONSTRAINT_NAME                                  VARCHAR2(30)
+ DELETE_RULE                                        VARCHAR2(9)
+ STATUS                                             VARCHAR2(8)
+ DEFERRABLE                                         VARCHAR2(14)
+ DEFERRED                                           VARCHAR2(9)
+ VALIDATED                                          VARCHAR2(13)
+ GENERATED                                          VARCHAR2(14)
+ BAD                                                VARCHAR2(3)
+ RELY                                               VARCHAR2(4)
+ LAST_CHANGE                                        DATE
+ INDEX_OWNER                                        VARCHAR2(30)
+ INDEX_NAME                                         VARCHAR2(30)
+ INVALID                                            VARCHAR2(7)
+ VIEW_RELATED                                       VARCHAR2(14)
+
+SQL> select owner, constraint_name from user_constraints;
+
+OWNER                          CONSTRAINT_NAME                                  
+------------------------------ ------------------------------                   
+HR                             REGION_ID_NN                                     
+HR                             COUNTRY_ID_NN                                    
+HR                             LOC_CITY_NN                                      
+HR                             DEPT_NAME_NN                                     
+HR                             JOB_TITLE_NN                                     
+HR                             EMP_LAST_NAME_NN                                 
+HR                             EMP_EMAIL_NN                                     
+HR                             EMP_HIRE_DATE_NN                                 
+HR                             EMP_JOB_NN                                       
+HR                             EMP_SALARY_MIN                                   
+HR                             JHIST_EMPLOYEE_NN                                
+
+OWNER                          CONSTRAINT_NAME                                  
+------------------------------ ------------------------------                   
+HR                             JHIST_START_DATE_NN                              
+HR                             JHIST_END_DATE_NN                                
+HR                             JHIST_JOB_NN                                     
+HR                             JHIST_DATE_INTERVAL                              
+HR                             SYS_C0011032                                     
+HR                             SYS_C0011151                                     
+HR                             SYS_C0011152                                     
+HR                             SYS_C0011153                                     
+HR                             SYS_C0011154                                     
+HR                             DEPT_MGR_FK                                      
+HR                             EMP_MANAGER_FK                                   
+
+OWNER                          CONSTRAINT_NAME                                  
+------------------------------ ------------------------------                   
+HR                             JHIST_EMP_FK                                     
+HR                             EMP_JOB_FK                                       
+HR                             JHIST_JOB_FK                                     
+HR                             EMP_DEPT_FK                                      
+HR                             JHIST_DEPT_FK                                    
+HR                             DEPT_LOC_FK                                      
+HR                             LOC_C_ID_FK                                      
+HR                             COUNTR_REG_FK                                    
+HR                             REG_ID_PK                                        
+HR                             COUNTRY_C_ID_PK                                  
+HR                             LOC_ID_PK                                        
+
+OWNER                          CONSTRAINT_NAME                                  
+------------------------------ ------------------------------                   
+HR                             DEPT_ID_PK                                       
+HR                             JOB_ID_PK                                        
+HR                             EMP_EMAIL_UK                                     
+HR                             EMP_EMP_ID_PK                                    
+HR                             JHIST_EMP_ID_ST_DATE_PK                          
+HR                             WIS_ID_PK                                        
+
+39 rows selected.
+
+SQL> select owner, constraint_name from user_constraints where owner='HR';
+
+OWNER                          CONSTRAINT_NAME                                  
+------------------------------ ------------------------------                   
+HR                             SYS_C0011154                                     
+HR                             SYS_C0011153                                     
+HR                             SYS_C0011152                                     
+HR                             SYS_C0011151                                     
+HR                             SYS_C0011032                                     
+HR                             JHIST_DATE_INTERVAL                              
+HR                             JHIST_JOB_NN                                     
+HR                             JHIST_END_DATE_NN                                
+HR                             JHIST_START_DATE_NN                              
+HR                             JHIST_EMPLOYEE_NN                                
+HR                             EMP_SALARY_MIN                                   
+
+OWNER                          CONSTRAINT_NAME                                  
+------------------------------ ------------------------------                   
+HR                             EMP_JOB_NN                                       
+HR                             EMP_HIRE_DATE_NN                                 
+HR                             EMP_EMAIL_NN                                     
+HR                             EMP_LAST_NAME_NN                                 
+HR                             JOB_TITLE_NN                                     
+HR                             DEPT_NAME_NN                                     
+HR                             LOC_CITY_NN                                      
+HR                             COUNTRY_ID_NN                                    
+HR                             REGION_ID_NN                                     
+HR                             JHIST_EMP_FK                                     
+HR                             EMP_MANAGER_FK                                   
+
+OWNER                          CONSTRAINT_NAME                                  
+------------------------------ ------------------------------                   
+HR                             DEPT_MGR_FK                                      
+HR                             JHIST_JOB_FK                                     
+HR                             EMP_JOB_FK                                       
+HR                             JHIST_DEPT_FK                                    
+HR                             EMP_DEPT_FK                                      
+HR                             DEPT_LOC_FK                                      
+HR                             LOC_C_ID_FK                                      
+HR                             COUNTR_REG_FK                                    
+HR                             REG_ID_PK                                        
+HR                             COUNTRY_C_ID_PK                                  
+HR                             LOC_ID_PK                                        
+
+OWNER                          CONSTRAINT_NAME                                  
+------------------------------ ------------------------------                   
+HR                             DEPT_ID_PK                                       
+HR                             JOB_ID_PK                                        
+HR                             EMP_EMAIL_UK                                     
+HR                             EMP_EMP_ID_PK                                    
+HR                             JHIST_EMP_ID_ST_DATE_PK                          
+HR                             WIS_ID_PK                                        
+
+39 rows selected.
+
+SQL> select owner, constraint_name, constraint_type from user_constraints where owner='HR';
+
+OWNER                          CONSTRAINT_NAME                C                 
+------------------------------ ------------------------------ -                 
+HR                             SYS_C0011154                   C                 
+HR                             SYS_C0011153                   C                 
+HR                             SYS_C0011152                   C                 
+HR                             SYS_C0011151                   C                 
+HR                             SYS_C0011032                   O                 
+HR                             JHIST_DATE_INTERVAL            C                 
+HR                             JHIST_JOB_NN                   C                 
+HR                             JHIST_END_DATE_NN              C                 
+HR                             JHIST_START_DATE_NN            C                 
+HR                             JHIST_EMPLOYEE_NN              C                 
+HR                             EMP_SALARY_MIN                 C                 
+
+OWNER                          CONSTRAINT_NAME                C                 
+------------------------------ ------------------------------ -                 
+HR                             EMP_JOB_NN                     C                 
+HR                             EMP_HIRE_DATE_NN               C                 
+HR                             EMP_EMAIL_NN                   C                 
+HR                             EMP_LAST_NAME_NN               C                 
+HR                             JOB_TITLE_NN                   C                 
+HR                             DEPT_NAME_NN                   C                 
+HR                             LOC_CITY_NN                    C                 
+HR                             COUNTRY_ID_NN                  C                 
+HR                             REGION_ID_NN                   C                 
+HR                             JHIST_EMP_FK                   R                 
+HR                             EMP_MANAGER_FK                 R                 
+
+OWNER                          CONSTRAINT_NAME                C                 
+------------------------------ ------------------------------ -                 
+HR                             DEPT_MGR_FK                    R                 
+HR                             JHIST_JOB_FK                   R                 
+HR                             EMP_JOB_FK                     R                 
+HR                             JHIST_DEPT_FK                  R                 
+HR                             EMP_DEPT_FK                    R                 
+HR                             DEPT_LOC_FK                    R                 
+HR                             LOC_C_ID_FK                    R                 
+HR                             COUNTR_REG_FK                  R                 
+HR                             REG_ID_PK                      P                 
+HR                             COUNTRY_C_ID_PK                P                 
+HR                             LOC_ID_PK                      P                 
+
+OWNER                          CONSTRAINT_NAME                C                 
+------------------------------ ------------------------------ -                 
+HR                             DEPT_ID_PK                     P                 
+HR                             JOB_ID_PK                      P                 
+HR                             EMP_EMAIL_UK                   U                 
+HR                             EMP_EMP_ID_PK                  P                 
+HR                             JHIST_EMP_ID_ST_DATE_PK        P                 
+HR                             WIS_ID_PK                      P                 
+
+39 rows selected.
+
+SQL> select owner, constraint_name, constraint_type from user_constraints where constraint_name !='SYS';
+
+OWNER                          CONSTRAINT_NAME                C                 
+------------------------------ ------------------------------ -                 
+HR                             REGION_ID_NN                   C                 
+HR                             COUNTRY_ID_NN                  C                 
+HR                             LOC_CITY_NN                    C                 
+HR                             DEPT_NAME_NN                   C                 
+HR                             JOB_TITLE_NN                   C                 
+HR                             EMP_LAST_NAME_NN               C                 
+HR                             EMP_EMAIL_NN                   C                 
+HR                             EMP_HIRE_DATE_NN               C                 
+HR                             EMP_JOB_NN                     C                 
+HR                             EMP_SALARY_MIN                 C                 
+HR                             JHIST_EMPLOYEE_NN              C                 
+
+OWNER                          CONSTRAINT_NAME                C                 
+------------------------------ ------------------------------ -                 
+HR                             JHIST_START_DATE_NN            C                 
+HR                             JHIST_END_DATE_NN              C                 
+HR                             JHIST_JOB_NN                   C                 
+HR                             JHIST_DATE_INTERVAL            C                 
+HR                             SYS_C0011032                   O                 
+HR                             SYS_C0011151                   C                 
+HR                             SYS_C0011152                   C                 
+HR                             SYS_C0011153                   C                 
+HR                             SYS_C0011154                   C                 
+HR                             DEPT_MGR_FK                    R                 
+HR                             EMP_MANAGER_FK                 R                 
+
+OWNER                          CONSTRAINT_NAME                C                 
+------------------------------ ------------------------------ -                 
+HR                             JHIST_EMP_FK                   R                 
+HR                             EMP_JOB_FK                     R                 
+HR                             JHIST_JOB_FK                   R                 
+HR                             EMP_DEPT_FK                    R                 
+HR                             JHIST_DEPT_FK                  R                 
+HR                             DEPT_LOC_FK                    R                 
+HR                             LOC_C_ID_FK                    R                 
+HR                             COUNTR_REG_FK                  R                 
+HR                             REG_ID_PK                      P                 
+HR                             COUNTRY_C_ID_PK                P                 
+HR                             LOC_ID_PK                      P                 
+
+OWNER                          CONSTRAINT_NAME                C                 
+------------------------------ ------------------------------ -                 
+HR                             DEPT_ID_PK                     P                 
+HR                             JOB_ID_PK                      P                 
+HR                             EMP_EMAIL_UK                   U                 
+HR                             EMP_EMP_ID_PK                  P                 
+HR                             JHIST_EMP_ID_ST_DATE_PK        P                 
+HR                             WIS_ID_PK                      P                 
+
+39 rows selected.
+
+SQL> select owner, constraint_name, constraint_type from user_constraints where regexp_like(constraint_name, '[^SYS].*');
+
+OWNER                          CONSTRAINT_NAME                C                 
+------------------------------ ------------------------------ -                 
+HR                             COUNTR_REG_FK                  R                 
+HR                             LOC_C_ID_FK                    R                 
+HR                             DEPT_LOC_FK                    R                 
+HR                             JHIST_DEPT_FK                  R                 
+HR                             EMP_DEPT_FK                    R                 
+HR                             JHIST_JOB_FK                   R                 
+HR                             EMP_JOB_FK                     R                 
+HR                             JHIST_EMP_FK                   R                 
+HR                             EMP_MANAGER_FK                 R                 
+HR                             DEPT_MGR_FK                    R                 
+HR                             WIS_ID_PK                      P                 
+
+OWNER                          CONSTRAINT_NAME                C                 
+------------------------------ ------------------------------ -                 
+HR                             JHIST_EMP_ID_ST_DATE_PK        P                 
+HR                             EMP_EMP_ID_PK                  P                 
+HR                             EMP_EMAIL_UK                   U                 
+HR                             JOB_ID_PK                      P                 
+HR                             DEPT_ID_PK                     P                 
+HR                             LOC_ID_PK                      P                 
+HR                             COUNTRY_C_ID_PK                P                 
+HR                             REG_ID_PK                      P                 
+HR                             SYS_C0011151                   C                 
+HR                             SYS_C0011152                   C                 
+HR                             SYS_C0011153                   C                 
+
+OWNER                          CONSTRAINT_NAME                C                 
+------------------------------ ------------------------------ -                 
+HR                             SYS_C0011154                   C                 
+HR                             REGION_ID_NN                   C                 
+HR                             LOC_CITY_NN                    C                 
+HR                             JHIST_EMPLOYEE_NN              C                 
+HR                             JHIST_START_DATE_NN            C                 
+HR                             JHIST_END_DATE_NN              C                 
+HR                             JHIST_JOB_NN                   C                 
+HR                             JHIST_DATE_INTERVAL            C                 
+HR                             JOB_TITLE_NN                   C                 
+HR                             SYS_C0011032                   O                 
+HR                             EMP_LAST_NAME_NN               C                 
+
+OWNER                          CONSTRAINT_NAME                C                 
+------------------------------ ------------------------------ -                 
+HR                             EMP_EMAIL_NN                   C                 
+HR                             EMP_HIRE_DATE_NN               C                 
+HR                             EMP_JOB_NN                     C                 
+HR                             EMP_SALARY_MIN                 C                 
+HR                             DEPT_NAME_NN                   C                 
+HR                             COUNTRY_ID_NN                  C                 
+
+39 rows selected.
+
+SQL> select owner, constraint_name, constraint_type from user_constraints where regexp_like(constraint_name, '[^(SYS)].*');
+
+OWNER                          CONSTRAINT_NAME                C                 
+------------------------------ ------------------------------ -                 
+HR                             COUNTR_REG_FK                  R                 
+HR                             LOC_C_ID_FK                    R                 
+HR                             DEPT_LOC_FK                    R                 
+HR                             JHIST_DEPT_FK                  R                 
+HR                             EMP_DEPT_FK                    R                 
+HR                             JHIST_JOB_FK                   R                 
+HR                             EMP_JOB_FK                     R                 
+HR                             JHIST_EMP_FK                   R                 
+HR                             EMP_MANAGER_FK                 R                 
+HR                             DEPT_MGR_FK                    R                 
+HR                             WIS_ID_PK                      P                 
+
+OWNER                          CONSTRAINT_NAME                C                 
+------------------------------ ------------------------------ -                 
+HR                             JHIST_EMP_ID_ST_DATE_PK        P                 
+HR                             EMP_EMP_ID_PK                  P                 
+HR                             EMP_EMAIL_UK                   U                 
+HR                             JOB_ID_PK                      P                 
+HR                             DEPT_ID_PK                     P                 
+HR                             LOC_ID_PK                      P                 
+HR                             COUNTRY_C_ID_PK                P                 
+HR                             REG_ID_PK                      P                 
+HR                             SYS_C0011151                   C                 
+HR                             SYS_C0011152                   C                 
+HR                             SYS_C0011153                   C                 
+
+OWNER                          CONSTRAINT_NAME                C                 
+------------------------------ ------------------------------ -                 
+HR                             SYS_C0011154                   C                 
+HR                             REGION_ID_NN                   C                 
+HR                             LOC_CITY_NN                    C                 
+HR                             JHIST_EMPLOYEE_NN              C                 
+HR                             JHIST_START_DATE_NN            C                 
+HR                             JHIST_END_DATE_NN              C                 
+HR                             JHIST_JOB_NN                   C                 
+HR                             JHIST_DATE_INTERVAL            C                 
+HR                             JOB_TITLE_NN                   C                 
+HR                             SYS_C0011032                   O                 
+HR                             EMP_LAST_NAME_NN               C                 
+
+OWNER                          CONSTRAINT_NAME                C                 
+------------------------------ ------------------------------ -                 
+HR                             EMP_EMAIL_NN                   C                 
+HR                             EMP_HIRE_DATE_NN               C                 
+HR                             EMP_JOB_NN                     C                 
+HR                             EMP_SALARY_MIN                 C                 
+HR                             DEPT_NAME_NN                   C                 
+HR                             COUNTRY_ID_NN                  C                 
+
+39 rows selected.
+
+SQL> select owner, constraint_name, constraint_type from user_constraints where regexp_notlike(constraint_name, 'SYS.*');
+select owner, constraint_name, constraint_type from user_constraints where regexp_notlike(constraint_name, 'SYS.*')
+                                                                                                                  *
+ERROR at line 1:
+ORA-00920: invalid relational operator 
+
+
+SQL> select owner, constraint_name, constraint_type from user_constraints where regexp_not_like(constraint_name, 'SYS.*');
+select owner, constraint_name, constraint_type from user_constraints where regexp_not_like(constraint_name, 'SYS.*')
+                                                                                                                   *
+ERROR at line 1:
+ORA-00920: invalid relational operator 
+
+
+SQL> select owner, constraint_name, constraint_type from user_constraints where table_name='wissen';
+
+no rows selected
+
+SQL> alter table wissen add constraint wis_id_pk primary key(id);
+alter table wissen add constraint wis_id_pk primary key(id)
+                                            *
+ERROR at line 1:
+ORA-02260: table can have only one primary key 
+
+
+SQL> select owner, constraint_name, constraint_type from user_cons_columns where table_name='wissen';
+select owner, constraint_name, constraint_type from user_cons_columns where table_name='wissen'
+                               *
+ERROR at line 1:
+ORA-00904: "CONSTRAINT_TYPE": invalid identifier 
+
+
+SQL> select constraint_name, constraint_type from user_cons_columns where table_name='wissen';
+select constraint_name, constraint_type from user_cons_columns where table_name='wissen'
+                        *
+ERROR at line 1:
+ORA-00904: "CONSTRAINT_TYPE": invalid identifier 
+
+
+SQL> select constraint_name, constraint_type from user_cons_columns where table_name='wissen';
+select constraint_name, constraint_type from user_cons_columns where table_name='wissen'
+                        *
+ERROR at line 1:
+ORA-00904: "CONSTRAINT_TYPE": invalid identifier 
+
+
+SQL> select constraint_name, constraint_type from user_constraints where table_name='wissen';
+
+no rows selected
+
+SQL> select owner,constraint_name,generated,table_name from user_constraints where constraint_name not like 'SYS%';
+
+OWNER                          CONSTRAINT_NAME                GENERATED         
+------------------------------ ------------------------------ --------------    
+TABLE_NAME                                                                      
+------------------------------                                                  
+HR                             REGION_ID_NN                   USER NAME         
+REGIONS                                                                         
+                                                                                
+HR                             COUNTRY_ID_NN                  USER NAME         
+COUNTRIES                                                                       
+                                                                                
+HR                             LOC_CITY_NN                    USER NAME         
+LOCATIONS                                                                       
+                                                                                
+
+OWNER                          CONSTRAINT_NAME                GENERATED         
+------------------------------ ------------------------------ --------------    
+TABLE_NAME                                                                      
+------------------------------                                                  
+HR                             DEPT_NAME_NN                   USER NAME         
+DEPARTMENTS                                                                     
+                                                                                
+HR                             JOB_TITLE_NN                   USER NAME         
+JOBS                                                                            
+                                                                                
+HR                             EMP_LAST_NAME_NN               USER NAME         
+EMPLOYEES                                                                       
+                                                                                
+
+OWNER                          CONSTRAINT_NAME                GENERATED         
+------------------------------ ------------------------------ --------------    
+TABLE_NAME                                                                      
+------------------------------                                                  
+HR                             EMP_EMAIL_NN                   USER NAME         
+EMPLOYEES                                                                       
+                                                                                
+HR                             EMP_HIRE_DATE_NN               USER NAME         
+EMPLOYEES                                                                       
+                                                                                
+HR                             EMP_JOB_NN                     USER NAME         
+EMPLOYEES                                                                       
+                                                                                
+
+OWNER                          CONSTRAINT_NAME                GENERATED         
+------------------------------ ------------------------------ --------------    
+TABLE_NAME                                                                      
+------------------------------                                                  
+HR                             EMP_SALARY_MIN                 USER NAME         
+EMPLOYEES                                                                       
+                                                                                
+HR                             JHIST_EMPLOYEE_NN              USER NAME         
+JOB_HISTORY                                                                     
+                                                                                
+HR                             JHIST_START_DATE_NN            USER NAME         
+JOB_HISTORY                                                                     
+                                                                                
+
+OWNER                          CONSTRAINT_NAME                GENERATED         
+------------------------------ ------------------------------ --------------    
+TABLE_NAME                                                                      
+------------------------------                                                  
+HR                             JHIST_END_DATE_NN              USER NAME         
+JOB_HISTORY                                                                     
+                                                                                
+HR                             JHIST_JOB_NN                   USER NAME         
+JOB_HISTORY                                                                     
+                                                                                
+HR                             JHIST_DATE_INTERVAL            USER NAME         
+JOB_HISTORY                                                                     
+                                                                                
+
+OWNER                          CONSTRAINT_NAME                GENERATED         
+------------------------------ ------------------------------ --------------    
+TABLE_NAME                                                                      
+------------------------------                                                  
+HR                             DEPT_MGR_FK                    USER NAME         
+DEPARTMENTS                                                                     
+                                                                                
+HR                             EMP_MANAGER_FK                 USER NAME         
+EMPLOYEES                                                                       
+                                                                                
+HR                             JHIST_EMP_FK                   USER NAME         
+JOB_HISTORY                                                                     
+                                                                                
+
+OWNER                          CONSTRAINT_NAME                GENERATED         
+------------------------------ ------------------------------ --------------    
+TABLE_NAME                                                                      
+------------------------------                                                  
+HR                             EMP_JOB_FK                     USER NAME         
+EMPLOYEES                                                                       
+                                                                                
+HR                             JHIST_JOB_FK                   USER NAME         
+JOB_HISTORY                                                                     
+                                                                                
+HR                             EMP_DEPT_FK                    USER NAME         
+EMPLOYEES                                                                       
+                                                                                
+
+OWNER                          CONSTRAINT_NAME                GENERATED         
+------------------------------ ------------------------------ --------------    
+TABLE_NAME                                                                      
+------------------------------                                                  
+HR                             JHIST_DEPT_FK                  USER NAME         
+JOB_HISTORY                                                                     
+                                                                                
+HR                             DEPT_LOC_FK                    USER NAME         
+DEPARTMENTS                                                                     
+                                                                                
+HR                             LOC_C_ID_FK                    USER NAME         
+LOCATIONS                                                                       
+                                                                                
+
+OWNER                          CONSTRAINT_NAME                GENERATED         
+------------------------------ ------------------------------ --------------    
+TABLE_NAME                                                                      
+------------------------------                                                  
+HR                             COUNTR_REG_FK                  USER NAME         
+COUNTRIES                                                                       
+                                                                                
+HR                             REG_ID_PK                      USER NAME         
+REGIONS                                                                         
+                                                                                
+HR                             COUNTRY_C_ID_PK                USER NAME         
+COUNTRIES                                                                       
+                                                                                
+
+OWNER                          CONSTRAINT_NAME                GENERATED         
+------------------------------ ------------------------------ --------------    
+TABLE_NAME                                                                      
+------------------------------                                                  
+HR                             LOC_ID_PK                      USER NAME         
+LOCATIONS                                                                       
+                                                                                
+HR                             DEPT_ID_PK                     USER NAME         
+DEPARTMENTS                                                                     
+                                                                                
+HR                             JOB_ID_PK                      USER NAME         
+JOBS                                                                            
+                                                                                
+
+OWNER                          CONSTRAINT_NAME                GENERATED         
+------------------------------ ------------------------------ --------------    
+TABLE_NAME                                                                      
+------------------------------                                                  
+HR                             EMP_EMAIL_UK                   USER NAME         
+EMPLOYEES                                                                       
+                                                                                
+HR                             EMP_EMP_ID_PK                  USER NAME         
+EMPLOYEES                                                                       
+                                                                                
+HR                             JHIST_EMP_ID_ST_DATE_PK        USER NAME         
+JOB_HISTORY                                                                     
+                                                                                
+
+OWNER                          CONSTRAINT_NAME                GENERATED         
+------------------------------ ------------------------------ --------------    
+TABLE_NAME                                                                      
+------------------------------                                                  
+HR                             WIS_ID_PK                      USER NAME         
+WISSEN                                                                          
+                                                                                
+
+34 rows selected.
+
+SQL> spool off

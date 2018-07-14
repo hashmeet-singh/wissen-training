@@ -1,0 +1,11 @@
+
+	ProductCatalog
+		=> id
+		=> name
+		=> price
+		=> makeDate
+		=> description
+		=> image
+		
+		
+	create db product

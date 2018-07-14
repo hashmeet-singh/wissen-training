@@ -1,0 +1,24 @@
+<div class="container">
+  <nav class="navbar navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">{{title}}</a>
+  </nav>
+  <hr/>
+  <div class="row">
+    <div class="col-3 col-sm-3 col-md-3">
+      <ul class="nav nav-pills flex-column">
+        <li class="nav-item">
+          <a class="nav-link" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active" [routerLink]="['']">Home</a>
+        </li> 
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active" [routerLink]="['transaction']">Transaction</a>
+        </li> 
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active" [routerLink]="['summary']">Account Summary</a>
+        </li> 
+      </ul>
+    </div>
+    <div class="col-9 col-sm-9 col-md-9">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,48 @@
+package com.example.demo.web;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.example.demo.model.Product;
+import com.example.demo.repository.ProductRepository;
+
+@Controller
+@RequestMapping(value="/products")
+public class ProductController {
+	
+	@Autowired
+	
+	private ProductRepository productRepository;
+	
+	
+	@GetMapping(produces="application/json")
+//	@RequestMapping(value="/products", method= RequestMethod.GET, produces="application/json")
+	public @ResponseBody List<Product> getProducts() {
+		List<Product> products = productRepository.findAll();
+		return products;
+	}
+	
+	@GetMapping(produces="application/json", value="/{id}")
+//	@RequestMapping(value="/products/{id}", method= RequestMethod.GET, produces="application/json")
+	public @ResponseBody Product getProductById(@PathVariable int id) {
+		Product product = productRepository.findById(id);
+		return product;
+	}
+	
+	@GetMapping(produces="application/json", params= {"nameprice"})
+//	@RequestMapping(value="/products/name/{prodName}", method= RequestMethod.GET, produces="application/json")
+	public @ResponseBody List<Product> getProductByName(@RequestParam String name, @RequestParam String price) {
+		List<Product> products = productRepository.findProduct(name);
+		return products;
+	}
+
+}

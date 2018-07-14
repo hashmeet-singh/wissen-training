@@ -1,0 +1,36 @@
+package com.bank.mts.repository;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+import com.bank.mts.model.Account;
+import com.bank.mts.model.Txn;
+
+public class TxnRepositoryImpl implements TxnRepopository {
+
+	@PersistenceContext
+	private EntityManager entityManager;
+
+	@Override
+	public Txn save(Txn txn) {
+		return entityManager.merge(txn);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Txn> findAll() {
+		return entityManager.createQuery("from Txn").getResultList();
+	}
+
+	@Override
+	public List<Txn> fetchTxns(String accountNum) {
+		Account account = new Account();
+		account.setNum(accountNum);
+		Query query = entityManager.createQuery("from Txn t where t.account = :account");
+		query.setParameter("account", account);
+	}
+
+}

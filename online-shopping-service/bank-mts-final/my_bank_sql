@@ -1,0 +1,9 @@
+create table transactions (
+id int primary key auto_increment,
+date date,
+type varchar(20),
+amount double,
+closing_balance double,
+acc_num varchar(10),
+FOREIGN KEY(acc_num) REFERENCES accounts(num)
+);

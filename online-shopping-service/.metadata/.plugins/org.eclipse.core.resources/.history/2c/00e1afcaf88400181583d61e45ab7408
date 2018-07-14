@@ -1,0 +1,44 @@
+package com.example.demo.repository;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.transaction.Transactional;
+
+import org.springframework.stereotype.Repository;
+
+import com.example.demo.model.Review;
+
+@Transactional
+@Repository
+public class ReviewRepositoryImpl implements ReviewRepository {
+
+	@PersistenceContext
+	private EntityManager entityManager;
+
+	@Override
+	public List<Review> findAll(int productId) {
+		Query query = entityManager.createQuery("from Review r where product_id = :prodId");
+		query.setParameter("prodId", productId);
+		return query.getResultList();
+	}
+
+	@Override
+	public Review addReview(Review review) {
+		return entityManager.merge(review);
+	}
+
+	@Override
+	public Review findById(int reviewId) {
+		return entityManager.find(Review.class, reviewId);
+	}
+
+	@Override
+	public void delete(int id) {
+		Review review = entityManager.find(Review.class, id);
+		entityManager.remove(review);
+	}
+
+}

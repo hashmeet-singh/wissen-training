@@ -1,0 +1,5 @@
+<div class="list-group" *ngIf="!isCartOpen">
+  <div *ngFor='let product of products; let idx = index' class="list-group-item">
+    <app-product [idx]="idx" [product]="product" ></app-product>
+  </div>
+</div>

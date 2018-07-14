@@ -1,0 +1,2 @@
+insert into shop_db.REVIEWS(stars,author,review,product_id) values(5,'abc@xyz.com','Good product',1);
+insert into shop_db.REVIEWS(stars,author,review,product_id) values(1,'abcd@xyz.com','Bad product',2);

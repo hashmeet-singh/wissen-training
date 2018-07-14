@@ -1,0 +1,5 @@
+package com.bank.mts.exception;
+
+public class InsufficientBalanceException extends Exception {
+
+}

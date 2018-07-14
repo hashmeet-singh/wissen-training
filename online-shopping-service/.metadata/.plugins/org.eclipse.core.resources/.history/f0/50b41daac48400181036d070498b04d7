@@ -1,0 +1,12 @@
+
+	ProductCatalog
+		=> id
+		=> name
+		=> price
+		=> makeDate
+		=> image
+		=> description
+		
+		
+		
+	create table 

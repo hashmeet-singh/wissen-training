@@ -1,0 +1,26 @@
+<button class="btn btn-primary" (click)="getTransactions($event)">Get Txns</button>
+<hr/>
+<div class="row">
+    <div class="col-10 col-sm-10 col-md-10">
+        <p-table [value]="transactions">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Id</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Type</th>
+                    <th>Closing Balance</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-transaction>
+                <tr>
+                    <td>{{transaction.id}}</td>
+                    <td>{{transaction.date|date}}</td>
+                    <td>{{transaction.amount|currency:'INR'}}</td>
+                    <td>{{transaction.type}}</td>
+                    <td>{{transaction.closingBalance|currency:'INR'}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>

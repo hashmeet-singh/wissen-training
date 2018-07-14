@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aop-reference-model>
+<aop-project name="bank-mts-v8 - web"/>
+<aop-project name="bank-mts-final"/>
+<aop-project name="product-catalog"/>
+</aop-reference-model>

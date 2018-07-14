@@ -1,0 +1,22 @@
+INDEX VERSION 1.130+C:\Users\nexwave\Desktop\online-shopping-service\.metadata\.plugins\org.eclipse.jdt.core
+1874572194.index
+2485904237.index
+1650480581.index
+994027891.index
+1555105212.index
+199636016.index
+2544262517.index
+1425295133.index
+2092561406.index
+258289907.index
+2654693181.index
+2259241409.index
+1888742404.index
+3899056828.index
+1912243481.index
+3776766566.index
+4169260629.index
+2691549704.index
+1664069240.index
+2413139004.index
+499579147.index

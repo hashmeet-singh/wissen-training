@@ -1,0 +1,14 @@
+<div class="container">
+  <nav class="navbar navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">{{title}}</a>
+  </nav>
+  <hr/>
+  <app-cart-badge></app-cart-badge>
+  |
+  <a [routerLink]="['products']">View products</a>
+  |
+  <a [routerLink]="['cart']">View cart</a>
+  <hr/>
+  <router-outlet></router-outlet>
+  
+</div>

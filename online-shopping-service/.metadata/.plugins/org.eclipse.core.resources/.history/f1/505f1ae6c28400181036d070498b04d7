@@ -1,0 +1,8 @@
+
+	ProductCatalog
+		=> id
+		=> name
+		=> price
+		=> makeDate
+		=> description
+		=> image

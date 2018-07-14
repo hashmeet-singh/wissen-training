@@ -1,0 +1,1 @@
+INDEX VERSION 1.4+C:\Users\nexwave\Desktop\online-shopping-service\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
